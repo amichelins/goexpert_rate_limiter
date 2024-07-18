@@ -1,0 +1,4 @@
+### GET
+GET http://localhost:8080/
+Host: localhost:8080
+API_KEY: TOKENA
