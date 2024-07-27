@@ -23,6 +23,8 @@ Build:
 A porta de conexão http é a 8080
 
 Teste:
+    Foi adicionado o main_test.go contendo:
+
     1 - Ter rodado o docker  compose up --build -d -V para iniciar os serviços
 
     2 - Rodar: go test -timeout 300s github.com/amichelins/goexpert_rate_limiter
