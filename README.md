@@ -23,11 +23,6 @@ Build:
 A porta de conexão http é a 8080
 
 Teste:
-       Utilizamos o arquivo http.http da pasta http.
-       Executando de forma insistente a requisição, como ela esta configurada baixa,
-       10 por segundo, rapidamente é emitido o aviso de bloqueio e posteriormente
-       o aviso que esta bloqueado e quando será desbloqueado.
-       O desbloqueio é automatico após passar o tempo do bloqeio configurado.
+    1 - Ter rodado o docker  compose up --build -d -V para iniciar os serviços
 
-
-
+    2 - Rodar: go test -timeout 300s github.com/amichelins/goexpert_rate_limiter

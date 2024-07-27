@@ -5,18 +5,27 @@ import (
     "log"
     "net/http"
     "os"
+    "strings"
 
     "github.com/amichelins/amsrtl"
     storage_redis "github.com/amichelins/amsrtl/storage/redis"
     "github.com/redis/go-redis/v9"
 )
 
+//
 func main() {
-    os.Setenv("LIMITER_MAX", "5")
-    os.Setenv("LIMITER_BLOCK_DURATION", "30")
-    os.Setenv("LIMITER_TOKENS", `[{"token":"TOKENA","limit": 10},{"token":"TOKENB","limit": 10}]`)
+    sRedisAddr := os.Getenv("LIMITER_REDIS_ADDR")
 
-    redisCli := redis.NewClient(&redis.Options{Addr: "redis:6379"})
+    if strings.Trim(sRedisAddr, " ") == "" {
+        log.Println("Using default addr for REDIS: redis:6379")
+        sRedisAddr = "redis:6379"
+    }
+
+    //os.Setenv("LIMITER_MAX", "5")
+    //os.Setenv("LIMITER_BLOCK_DURATION", "30")
+    //os.Setenv("LIMITER_TOKENS", `[{"token":"TOKENA","limit": 10},{"token":"TOKENB","limit": 10}]`)
+
+    redisCli := redis.NewClient(&redis.Options{Addr: sRedisAddr})
     stdRedis := storage_redis.NewRedisStorage(redisCli, true)
     rateLimit := amsrtl.NewEnvLimiter(stdRedis)
 
